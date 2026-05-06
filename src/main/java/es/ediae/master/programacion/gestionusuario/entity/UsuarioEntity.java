@@ -1,7 +1,7 @@
 package es.ediae.master.programacion.gestionusuario.entity;
 
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +26,10 @@ public class UsuarioEntity {
     private String password;
 
     @Column(nullable=false)
-    private Date fechaHoraCreacion;
+    private LocalDateTime fechaHoraCreacion;
+
+    @Column(name = "nombre", nullable=false)
+    private String nombre;
 
     @Column(name = "primer_apellido", nullable=false)
     private String primerApellido;
@@ -35,10 +38,10 @@ public class UsuarioEntity {
     private String segundoApellido;
 
     @Column(name = "fecha_nacimiento", nullable=false)
-    private Date fechaNacimiento;
+    private LocalDateTime fechaNacimiento;
 
     @Column(name = "hora_desayuno", nullable=true)
-    private Time horaDesayuno;
+    private LocalTime horaDesayuno;
 
     @ManyToOne
     @JoinColumn(name = "genero_id", nullable=false)
@@ -72,11 +75,11 @@ public class UsuarioEntity {
         this.password = password;
     }
 
-    public Date getFechaHoraCreacion() {
+    public LocalDateTime getFechaHoraCreacion() {
         return fechaHoraCreacion;
     }
 
-    public void setFechaHoraCreacion(Date fechaHoraCreacion) {
+    public void setFechaHoraCreacion(LocalDateTime fechaHoraCreacion) {
         this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
@@ -96,19 +99,19 @@ public class UsuarioEntity {
         this.segundoApellido = segundoApellido;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Time getHoraDesayuno() {
+    public LocalTime getHoraDesayuno() {
         return horaDesayuno;
     }
 
-    public void setHoraDesayuno(Time horaDesayuno) {
+    public void setHoraDesayuno(LocalTime horaDesayuno) {
         this.horaDesayuno = horaDesayuno;
     }
 
@@ -126,6 +129,14 @@ public class UsuarioEntity {
 
     public void setPuestoDeTrabajo(PuestoDeTrabajoEntity puestoDeTrabajo) {
         this.puestoDeTrabajo = puestoDeTrabajo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     

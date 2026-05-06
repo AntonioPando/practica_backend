@@ -1,7 +1,8 @@
 package es.ediae.master.programacion.gestionusuario.controller;
 
-import es.ediae.master.programacion.gestionusuario.constant.GeneralConstant;
 import org.springframework.ui.ModelMap;
+
+import es.ediae.master.programacion.gestionusuario.constant.GeneralConstant;
 
 public class GeneralControllerUtils {
     static ModelMap crearRespuestaModelMapOk(Object data) {
