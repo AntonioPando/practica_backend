@@ -28,6 +28,9 @@ public class UsuarioEntity {
     @Column(nullable=false)
     private LocalDateTime fechaHoraCreacion;
 
+    @Column(name = "es_admin", nullable = false)
+    private boolean esAdmin = false;
+
     @Column(name = "nombre", nullable=false)
     private String nombre;
 
@@ -113,6 +116,14 @@ public class UsuarioEntity {
 
     public void setHoraDesayuno(LocalTime horaDesayuno) {
         this.horaDesayuno = horaDesayuno;
+    }
+
+    public boolean isEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(boolean esAdmin) {
+        this.esAdmin = esAdmin;
     }
 
     public GeneroEntity getGenero() {

@@ -19,6 +19,7 @@ public class UsuarioModel {
     private LocalDateTime fechaNacimiento;
     private LocalDateTime fechaHoraCreacion;
     private LocalTime horaDesayuno;
+    private Boolean esAdmin;
 
     // Simplificamos las relaciones enviando solo los IDs o nombres
     private Integer generoId;
@@ -125,6 +126,8 @@ public class UsuarioModel {
 
     public PuestoDeTrabajoDTO getPuestoDeTrabajo() { return puestoDeTrabajo; }
     public void setPuestoDeTrabajo(PuestoDeTrabajoDTO puestoDeTrabajo) { this.puestoDeTrabajo = puestoDeTrabajo; }
+    public Boolean getEsAdmin() { return esAdmin; }
+    public void setEsAdmin(Boolean esAdmin) { this.esAdmin = esAdmin; }
 
     public static UsuarioModel fromEntity(UsuarioEntity usuarioEntity) {
         UsuarioModel model = new UsuarioModel();
@@ -136,6 +139,7 @@ public class UsuarioModel {
         model.setFechaNacimiento(usuarioEntity.getFechaNacimiento());
         model.setFechaHoraCreacion(usuarioEntity.getFechaHoraCreacion());
         model.setHoraDesayuno(usuarioEntity.getHoraDesayuno());
+        model.setEsAdmin(usuarioEntity.isEsAdmin());
         model.setGeneroId(usuarioEntity.getGenero() != null ? usuarioEntity.getGenero().getId() : null);
         if (usuarioEntity.getGenero() != null) {
             GeneroDTO g = new GeneroDTO();
@@ -164,6 +168,7 @@ public class UsuarioModel {
         model.setFechaNacimiento(usuarioDTO.getFechaNacimiento());
         model.setFechaHoraCreacion(usuarioDTO.getFechaHoraCreacion());
         model.setHoraDesayuno(usuarioDTO.getHoraDesayuno());
+        model.setEsAdmin(usuarioDTO.getEsAdmin());
         model.setGeneroId(usuarioDTO.getGeneroId());
         if (usuarioDTO.getGenero() != null) {
             model.setGenero(usuarioDTO.getGenero());
@@ -186,6 +191,7 @@ public class UsuarioModel {
         model.setFechaNacimiento(usuarioPostDTO.getFechaNacimiento());
         model.setFechaHoraCreacion(usuarioPostDTO.getFechaHoraCreacion());
         model.setHoraDesayuno(usuarioPostDTO.getHoraDesayuno());
+        model.setEsAdmin(usuarioPostDTO.getEsAdmin());
         model.setGeneroId(usuarioPostDTO.getGeneroId());
         model.setGeneroDescripcion(usuarioPostDTO.getGeneroDescripcion());
         model.setPuestoDeTrabajoId(usuarioPostDTO.getPuestoDeTrabajoId());

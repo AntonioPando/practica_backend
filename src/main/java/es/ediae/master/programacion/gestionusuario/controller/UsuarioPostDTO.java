@@ -12,6 +12,7 @@ public class UsuarioPostDTO {
     private LocalDateTime fechaNacimiento;
     private LocalDateTime fechaHoraCreacion;
     private LocalTime horaDesayuno;
+    private Boolean esAdmin;
 
     // Simplificamos las relaciones enviando solo los IDs o nombres
     private Integer generoId;
@@ -103,5 +104,13 @@ public class UsuarioPostDTO {
 
     public void setPuestoDeTrabajoId(Integer puestoDeTrabajoId) {
         this.puestoDeTrabajoId = puestoDeTrabajoId;
+    }
+
+    public Boolean getEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(Boolean esAdmin) {
+        this.esAdmin = esAdmin;
     }
 }

@@ -13,6 +13,7 @@ public class UsuarioDTO {
     private LocalDateTime fechaNacimiento;
     private LocalDateTime fechaHoraCreacion;
     private LocalTime horaDesayuno;
+    private Boolean esAdmin;
     
     // Relaciones: incluir objetos completos además de los IDs (para compatibilidad)
     private Integer generoId;
@@ -59,4 +60,6 @@ public class UsuarioDTO {
 
     public PuestoDeTrabajoDTO getPuestoDeTrabajo() { return puestoDeTrabajo; }
     public void setPuestoDeTrabajo(PuestoDeTrabajoDTO puestoDeTrabajo) { this.puestoDeTrabajo = puestoDeTrabajo; }
+    public Boolean getEsAdmin() { return esAdmin; }
+    public void setEsAdmin(Boolean esAdmin) { this.esAdmin = esAdmin; }
 }

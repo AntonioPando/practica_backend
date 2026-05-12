@@ -60,6 +60,7 @@ public class UsuarioController {
         entity.setFechaNacimiento(usuarioPostDTO.getFechaNacimiento());
         entity.setFechaHoraCreacion(usuarioPostDTO.getFechaHoraCreacion() != null ? usuarioPostDTO.getFechaHoraCreacion() : LocalDateTime.now());
         entity.setHoraDesayuno(usuarioPostDTO.getHoraDesayuno());
+        entity.setEsAdmin(usuarioPostDTO.getEsAdmin() != null ? usuarioPostDTO.getEsAdmin() : false);
 
         // Set relations if provided
         if (usuarioPostDTO.getGeneroId() != null) {
@@ -130,6 +131,10 @@ public class UsuarioController {
         if (usuarioPostDTO.getFechaNacimiento() != null) usuario.setFechaNacimiento(usuarioPostDTO.getFechaNacimiento());
         if (usuarioPostDTO.getFechaHoraCreacion() != null) usuario.setFechaHoraCreacion(usuarioPostDTO.getFechaHoraCreacion());
         if (usuarioPostDTO.getHoraDesayuno() != null) usuario.setHoraDesayuno(usuarioPostDTO.getHoraDesayuno());
+
+        if (usuarioPostDTO.getEsAdmin() != null) {
+            usuario.setEsAdmin(usuarioPostDTO.getEsAdmin());
+        }
 
         if (usuarioPostDTO.getGeneroId() != null) {
             GeneroEntity g = em.find(GeneroEntity.class, usuarioPostDTO.getGeneroId());
