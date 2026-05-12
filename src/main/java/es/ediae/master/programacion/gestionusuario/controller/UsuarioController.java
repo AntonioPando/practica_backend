@@ -50,6 +50,14 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nickUsuario es obligatorio");
         }
 
+        // Unicidad de nickUsuario: no permitir crear si ya existe
+        Long existentes = em.createQuery("SELECT COUNT(u) FROM UsuarioEntity u WHERE u.nickUsuario = :nick", Long.class)
+                .setParameter("nick", usuarioPostDTO.getNickUsuario())
+                .getSingleResult();
+        if (existentes != null && existentes > 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nickUsuario ya existe");
+        }
+
         UsuarioEntity entity = new UsuarioEntity();
         entity.setNickUsuario(usuarioPostDTO.getNickUsuario());
         // password is required in entity; set a default temporary password if not provided
@@ -123,7 +131,18 @@ public class UsuarioController {
             if (usuarioPostDTO.getNickUsuario().trim().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nickUsuario no puede estar vacío");
             }
-            usuario.setNickUsuario(usuarioPostDTO.getNickUsuario());
+            // Si cambia el nick, comprobar unicidad
+            String nuevoNick = usuarioPostDTO.getNickUsuario();
+            if (!nuevoNick.equals(usuario.getNickUsuario())) {
+                Long existentes = em.createQuery("SELECT COUNT(u) FROM UsuarioEntity u WHERE u.nickUsuario = :nick AND u.id <> :id", Long.class)
+                        .setParameter("nick", nuevoNick)
+                        .setParameter("id", id)
+                        .getSingleResult();
+                if (existentes != null && existentes > 0) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nickUsuario ya existe");
+                }
+            }
+            usuario.setNickUsuario(nuevoNick);
         }
         if (usuarioPostDTO.getNombre() != null) usuario.setNombre(usuarioPostDTO.getNombre());
         if (usuarioPostDTO.getPrimerApellido() != null) usuario.setPrimerApellido(usuarioPostDTO.getPrimerApellido());
