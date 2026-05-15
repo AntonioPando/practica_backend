@@ -22,6 +22,7 @@ public class UsuarioEntity {
 
     @Column(name = "nick_usuario",nullable=false)
     private String nickUsuario;
+    
     @Column(nullable=false)
     private String password;
 

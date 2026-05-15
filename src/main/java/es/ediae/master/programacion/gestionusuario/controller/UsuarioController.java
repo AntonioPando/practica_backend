@@ -3,26 +3,28 @@ package es.ediae.master.programacion.gestionusuario.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 import es.ediae.master.programacion.gestionusuario.entity.GeneroEntity;
 import es.ediae.master.programacion.gestionusuario.entity.PuestoDeTrabajoEntity;
 import es.ediae.master.programacion.gestionusuario.entity.UsuarioEntity;
+import es.ediae.master.programacion.gestionusuario.service.IUsuarioService;
 import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioModel;
+import es.ediae.master.programacion.gestionusuario.service.impl.UsuarioService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET,
+        RequestMethod.POST, 
+        RequestMethod.PUT,
+        RequestMethod.DELETE, 
+        RequestMethod.OPTIONS })
 @RequestMapping("/api/v1/")
 public class UsuarioController {
 
@@ -31,15 +33,22 @@ public class UsuarioController {
     @PersistenceContext
     private EntityManager em;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @GetMapping("/usuarios")
-    public ResponseEntity<String> listarUsuarios() {
-        // Placeholder: return informative message until service is implemented
-        return ResponseEntity.ok("Endpoint listarUsuarios - implementar servicio");
+    public ResponseEntity<?> listarUsuarios() {
+        java.util.List<UsuarioModel> lista = usuarioService.listarUsuarios();
+        return ResponseEntity.ok(lista);
     }
 
     @GetMapping("/usuarios/{id}")
-    public ResponseEntity<String> obtenerUsuario(@PathVariable Integer id) {
-        return ResponseEntity.ok("Endpoint obtenerUsuario id=" + id + " - implementar servicio");
+    public ResponseEntity<?> obtenerUsuario(@PathVariable Integer id) {
+        UsuarioModel model = usuarioService.obtenerUsuario(id);
+        if (model == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+        }
+        return ResponseEntity.ok(model);
     }
 
     @PostMapping("/usuarios")
@@ -88,22 +97,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuarios/login")
-    public ResponseEntity<?> iniciarSesion(@RequestBody LoginDTO loginDTO) {
-        if (loginDTO.getNickUsuario() == null || loginDTO.getPassword() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nickUsuario y password son obligatorios");
-        }
-
-        List<UsuarioEntity> encontrados = em.createQuery("SELECT u FROM UsuarioEntity u WHERE u.nickUsuario = :nick", UsuarioEntity.class)
-                .setParameter("nick", loginDTO.getNickUsuario())
-                .getResultList();
-
-        if (encontrados.isEmpty()) {
-            return ResponseEntity.ok(false);
-        }
-
-        UsuarioEntity usuario = encontrados.get(0);
-        boolean autenticado = usuario.getPassword() != null && usuario.getPassword().equals(loginDTO.getPassword());
-        return ResponseEntity.ok(autenticado);
+    public boolean iniciarSesion(@RequestParam String nickUsuario, @RequestParam String password) {
+        return usuarioService.iniciarSesion(nickUsuario, password);
     }
 
     @DeleteMapping("/usuarios/{id}")
