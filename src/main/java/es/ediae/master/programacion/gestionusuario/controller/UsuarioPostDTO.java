@@ -6,6 +6,7 @@ import java.time.LocalTime;
 public class UsuarioPostDTO {
 
     private String nickUsuario;
+    private String password;
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
@@ -27,6 +28,14 @@ public class UsuarioPostDTO {
 
     public String getNickUsuario() {
         return nickUsuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setNickUsuario(String nickUsuario) {

@@ -13,6 +13,7 @@ public class UsuarioModel {
 
     private Integer id;
     private String nickUsuario;
+    private String password;
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
@@ -47,6 +48,14 @@ public class UsuarioModel {
 
     public void setNickUsuario(String nickUsuario) {
         this.nickUsuario = nickUsuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getNombre() {

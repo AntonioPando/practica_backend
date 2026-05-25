@@ -7,6 +7,7 @@ public class UsuarioDTO {
 
     private Integer id;
     private String nickUsuario;
+    private String password;
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
@@ -30,6 +31,9 @@ public class UsuarioDTO {
 
     public String getNickUsuario() { return nickUsuario; }
     public void setNickUsuario(String nickUsuario) { this.nickUsuario = nickUsuario; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String contraseña) { this.password = contraseña; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
