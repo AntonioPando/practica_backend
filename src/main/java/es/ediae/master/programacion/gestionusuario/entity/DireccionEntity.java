@@ -27,7 +27,7 @@ public class DireccionEntity {
     private Boolean direccionPrincipal;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable=false)
+    @JoinColumn(name = "usuario_id", nullable=true)
     private UsuarioEntity usuario;
 
     public Integer getId() {
